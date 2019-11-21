@@ -39,29 +39,28 @@ import rclpy
 from rclpy.qos import QoSProfile
 
 BURGER_MAX_LIN_VEL = 0.22
-BURGER_MAX_ANG_VEL = 2.84
+#BURGER_MAX_ANG_VEL = 2.84
+BURGER_MAX_ANG_VEL = 0.84
 
 WAFFLE_MAX_LIN_VEL = 0.26
 WAFFLE_MAX_ANG_VEL = 1.82
 
 LIN_VEL_STEP_SIZE = 0.01
-ANG_VEL_STEP_SIZE = 0.1
+#ANG_VEL_STEP_SIZE = 0.1
+ANG_VEL_STEP_SIZE = 0.2
 
 TURTLEBOT3_MODEL = os.environ['TURTLEBOT3_MODEL']
 
 msg = """
-Control Your TurtleBot3!!
+Control Your TurtleBot3(turn left)!!
 ---------------------------
 Moving around:
         w
    a    s    d
         x
-
 w/x : increase/decrease linear velocity (Burger : ~ 0.22, Waffle and Waffle Pi : ~ 0.26)
 a/d : increase/decrease angular velocity (Burger : ~ 2.84, Waffle and Waffle Pi : ~ 1.82)
-
 space key, s : force stop
-
 CTRL-C to quit
 """
 
@@ -77,10 +76,9 @@ def get_key(settings):
         key = sys.stdin.read(1)
     else:
         key = ''
-
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
     '''
-    TEST_KEY = 'd'
+    TEST_KEY = 'a'
     time.sleep(10)
     return TEST_KEY
 
@@ -110,7 +108,7 @@ def constrain(input_vel, low_bound, high_bound):
     else:
         input_vel = input_vel
 
-    return input_vel
+        return input_vel
 
 
 def check_linear_limit_velocity(velocity):
@@ -124,10 +122,10 @@ def check_linear_limit_velocity(velocity):
 
 def check_angular_limit_velocity(velocity):
     if TURTLEBOT3_MODEL == 'burger':
-        '''
-        return constrain(velocity, -BURGER_MAX_ANG_VEL, BURGER_MAX_ANG_VEL)
-        '''
-        return 0.1
+        
+        #return constrain(velocity, -BURGER_MAX_ANG_VEL, BURGER_MAX_ANG_VEL)
+        
+        return 0.4
     else:
         return constrain(velocity, -WAFFLE_MAX_ANG_VEL, WAFFLE_MAX_ANG_VEL)
 
