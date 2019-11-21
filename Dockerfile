@@ -40,6 +40,7 @@ RUN /bin/bash -c "source /opt/ros/dashing/setup.bash ;\
 
 # Download demo example
 RUN /bin/bash -c "rm -f ros2demo_domain40/src/teleop_keyboard.py; \
+                  rm -f ros2demo_domain40/src/run_teleoperation.sh; \
 		  git clone https://github.com/intellicode-demo/ros2demo_domain40.git;\
                   cp ros2demo_domain40/src/run_teleoperation.sh . ;\
                   chmod +x teleop_keyboard.py ;\
